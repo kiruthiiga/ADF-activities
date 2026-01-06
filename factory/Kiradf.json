@@ -1,0 +1,9 @@
+{
+	"name": "Kiradf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "c85e802f-9884-43fe-857c-45f080eab5df",
+		"tenantId": "ed23d8a2-c4be-4c9d-b0fc-04c000411887"
+	}
+}
