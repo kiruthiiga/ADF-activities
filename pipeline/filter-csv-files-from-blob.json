@@ -21,8 +21,9 @@
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
 							"modifiedDatetimeEnd": null,
-							"enablePartitionDiscovery": false,
-							"prefix": "sample_employees"
+							"wildcardFolderPath": "sample_employees_",
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
