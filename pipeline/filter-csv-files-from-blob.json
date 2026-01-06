@@ -22,7 +22,7 @@
 							"recursive": true,
 							"modifiedDatetimeEnd": null,
 							"enablePartitionDiscovery": false,
-							"prefix": "smaple_employees"
+							"prefix": "sample_employees"
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
