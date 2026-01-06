@@ -57,7 +57,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "copycsvfilessourceDS",
+						"referenceName": "copycsvfiletargetDS",
 						"type": "DatasetReference"
 					}
 				]
