@@ -8,6 +8,7 @@
 		"annotations": [],
 		"type": "Excel",
 		"typeProperties": {
+			"sheetName": "SAC_bank_account_types",
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": "bank_account_typesdata.xlsx",
