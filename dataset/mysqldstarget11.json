@@ -1,0 +1,15 @@
+{
+	"name": "mysqldstarget11",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MySql1LS",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"AllowPublicKeyRetrieval": "True"
+			}
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	}
+}
