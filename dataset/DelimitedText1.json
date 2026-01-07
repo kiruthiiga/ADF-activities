@@ -2,7 +2,7 @@
 	"name": "DelimitedText1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "AzureBlobStorage1",
+			"referenceName": "LSsourcemysql",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
