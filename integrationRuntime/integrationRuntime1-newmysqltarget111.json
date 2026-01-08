@@ -1,0 +1,6 @@
+{
+	"name": "integrationRuntime1-newmysqltarget111",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
