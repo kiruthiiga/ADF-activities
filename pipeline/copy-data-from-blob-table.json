@@ -1,5 +1,5 @@
 {
-	"name": "filter-csv-files-from-blob",
+	"name": "copy-data-from-blob-table",
 	"properties": {
 		"activities": [
 			{
