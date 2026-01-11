@@ -11,9 +11,73 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
+		"AzureBlobStorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
+		"LS_source_csvfile_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_source_csvfile'"
+		},
+		"LSsourcemysql_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LSsourcemysql'"
+		},
+		"MySql1LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySql1LS'"
+		},
 		"copycsvfilesSourceLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'copycsvfilesSourceLS'"
+		},
+		"mysqlsourceblobLLSS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'mysqlsourceblobLLSS'"
+		},
+		"newtargetmtsql111_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'newtargetmtsql111'"
+		},
+		"LS_target_csvfiles_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_target_csvfiles'"
+		},
+		"MySql1LS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.1.150"
+		},
+		"MySql1LS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "employees"
+		},
+		"MySql1LS_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"newtargetmtsql111_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.1.150"
+		},
+		"newtargetmtsql111_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "employees"
+		},
+		"newtargetmtsql111_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"LS_target_csvfiles_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "kiradfserver.database.windows.net"
+		},
+		"LS_target_csvfiles_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "kirdb"
+		},
+		"LS_target_csvfiles_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "kiradf"
 		},
 		"containerUri": {
 			"type": "string",
@@ -45,8 +109,56 @@
 					"AzureBlobStorage1_connectionString": {
 						"value": "[parameters('AzureBlobStorage1_connectionString')]"
 					},
+					"AzureBlobStorage2_connectionString": {
+						"value": "[parameters('AzureBlobStorage2_connectionString')]"
+					},
+					"LS_source_csvfile_connectionString": {
+						"value": "[parameters('LS_source_csvfile_connectionString')]"
+					},
 					"copycsvfilesSourceLS_connectionString": {
 						"value": "[parameters('copycsvfilesSourceLS_connectionString')]"
+					},
+					"mysqlsourceblobLLSS_connectionString": {
+						"value": "[parameters('mysqlsourceblobLLSS_connectionString')]"
+					},
+					"LSsourcemysql_connectionString": {
+						"value": "[parameters('LSsourcemysql_connectionString')]"
+					},
+					"MySql1LS_password": {
+						"value": "[parameters('MySql1LS_password')]"
+					},
+					"newtargetmtsql111_password": {
+						"value": "[parameters('newtargetmtsql111_password')]"
+					},
+					"LS_target_csvfiles_password": {
+						"value": "[parameters('LS_target_csvfiles_password')]"
+					},
+					"MySql1LS_properties_typeProperties_server": {
+						"value": "[parameters('MySql1LS_properties_typeProperties_server')]"
+					},
+					"MySql1LS_properties_typeProperties_database": {
+						"value": "[parameters('MySql1LS_properties_typeProperties_database')]"
+					},
+					"MySql1LS_properties_typeProperties_username": {
+						"value": "[parameters('MySql1LS_properties_typeProperties_username')]"
+					},
+					"newtargetmtsql111_properties_typeProperties_server": {
+						"value": "[parameters('newtargetmtsql111_properties_typeProperties_server')]"
+					},
+					"newtargetmtsql111_properties_typeProperties_database": {
+						"value": "[parameters('newtargetmtsql111_properties_typeProperties_database')]"
+					},
+					"newtargetmtsql111_properties_typeProperties_username": {
+						"value": "[parameters('newtargetmtsql111_properties_typeProperties_username')]"
+					},
+					"LS_target_csvfiles_properties_typeProperties_server": {
+						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_server')]"
+					},
+					"LS_target_csvfiles_properties_typeProperties_database": {
+						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_database')]"
+					},
+					"LS_target_csvfiles_properties_typeProperties_userName": {
+						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_userName')]"
 					}
 				}
 			},

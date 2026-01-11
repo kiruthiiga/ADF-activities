@@ -8,8 +8,56 @@
 		"AzureBlobStorage1_connectionString": {
 			"value": ""
 		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
+		"LS_source_csvfile_connectionString": {
+			"value": ""
+		},
+		"LSsourcemysql_connectionString": {
+			"value": ""
+		},
+		"MySql1LS_password": {
+			"value": ""
+		},
 		"copycsvfilesSourceLS_connectionString": {
 			"value": ""
+		},
+		"mysqlsourceblobLLSS_connectionString": {
+			"value": ""
+		},
+		"newtargetmtsql111_password": {
+			"value": ""
+		},
+		"LS_target_csvfiles_password": {
+			"value": ""
+		},
+		"MySql1LS_properties_typeProperties_server": {
+			"value": "192.168.1.150"
+		},
+		"MySql1LS_properties_typeProperties_database": {
+			"value": "employees"
+		},
+		"MySql1LS_properties_typeProperties_username": {
+			"value": "root"
+		},
+		"newtargetmtsql111_properties_typeProperties_server": {
+			"value": "192.168.1.150"
+		},
+		"newtargetmtsql111_properties_typeProperties_database": {
+			"value": "employees"
+		},
+		"newtargetmtsql111_properties_typeProperties_username": {
+			"value": "root"
+		},
+		"LS_target_csvfiles_properties_typeProperties_server": {
+			"value": "kiradfserver.database.windows.net"
+		},
+		"LS_target_csvfiles_properties_typeProperties_database": {
+			"value": "kirdb"
+		},
+		"LS_target_csvfiles_properties_typeProperties_userName": {
+			"value": "kiradf"
 		},
 		"containerUri": {
 			"value": ""

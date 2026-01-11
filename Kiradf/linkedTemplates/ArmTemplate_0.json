@@ -11,9 +11,73 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
 		},
+		"AzureBlobStorage2_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
+		"LS_source_csvfile_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_source_csvfile'"
+		},
 		"copycsvfilesSourceLS_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'copycsvfilesSourceLS'"
+		},
+		"mysqlsourceblobLLSS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'mysqlsourceblobLLSS'"
+		},
+		"LSsourcemysql_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LSsourcemysql'"
+		},
+		"MySql1LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySql1LS'"
+		},
+		"newtargetmtsql111_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'newtargetmtsql111'"
+		},
+		"LS_target_csvfiles_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_target_csvfiles'"
+		},
+		"MySql1LS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.1.150"
+		},
+		"MySql1LS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "employees"
+		},
+		"MySql1LS_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"newtargetmtsql111_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "192.168.1.150"
+		},
+		"newtargetmtsql111_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "employees"
+		},
+		"newtargetmtsql111_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"LS_target_csvfiles_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "kiradfserver.database.windows.net"
+		},
+		"LS_target_csvfiles_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "kirdb"
+		},
+		"LS_target_csvfiles_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "kiradf"
 		}
 	},
 	"variables": {
@@ -34,6 +98,32 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage2')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage2_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_source_csvfile')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_source_csvfile_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/copycsvfilesSourceLS')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -47,31 +137,37 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
+			"name": "[concat(parameters('factoryName'), '/mysqlsourceblobLLSS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
 				"annotations": [],
-				"type": "DelimitedText",
+				"type": "AzureBlobStorage",
 				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "target-cont"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
+					"connectionString": "[parameters('mysqlsourceblobLLSS_connectionString')]"
+				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1-newmysqltarget111')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/myhome')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Excel1')]",
@@ -121,12 +217,12 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/copycsvfilessourceDS')]",
+			"name": "[concat(parameters('factoryName'), '/dssourcecsvfiles')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "copycsvfilesSourceLS",
+					"referenceName": "LS_source_csvfile",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -161,16 +257,127 @@
 				]
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/copycsvfilesSourceLS')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_source_csvfile')]"
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/copycsvfiletargetDS')]",
+			"name": "[concat(parameters('factoryName'), '/LSsourcemysql')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LSsourcemysql_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "myhome",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/myhome')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MySql1LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"parameters": {
+					"AllowPublicKeyRetrieval": {
+						"type": "string",
+						"defaultValue": "True"
+					}
+				},
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"server": "[parameters('MySql1LS_properties_typeProperties_server')]",
+					"port": "33060",
+					"database": "[parameters('MySql1LS_properties_typeProperties_database')]",
+					"username": "[parameters('MySql1LS_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('MySql1LS_password')]"
+					},
+					"driverVersion": "v2"
+				},
+				"connectVia": {
+					"referenceName": "myhome",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/myhome')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/newtargetmtsql111')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"server": "[parameters('newtargetmtsql111_properties_typeProperties_server')]",
+					"port": "3306",
+					"database": "[parameters('newtargetmtsql111_properties_typeProperties_database')]",
+					"username": "[parameters('newtargetmtsql111_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('newtargetmtsql111_password')]"
+					},
+					"driverVersion": "v2"
+				},
+				"connectVia": {
+					"referenceName": "myhome",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/myhome')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_target_csvfiles')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('LS_target_csvfiles_properties_typeProperties_server')]",
+					"database": "[parameters('LS_target_csvfiles_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_target_csvfiles_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_target_csvfiles_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime1-newmysqltarget111",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1-newmysqltarget111')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"linkedServiceName": {
-					"referenceName": "copycsvfilesSourceLS",
+					"referenceName": "LSsourcemysql",
 					"type": "LinkedServiceReference"
 				},
 				"annotations": [],
@@ -188,7 +395,47 @@
 				"schema": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/copycsvfilesSourceLS')]"
+				"[concat(variables('factoryId'), '/linkedServices/LSsourcemysql')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DStargetcsvfiles')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_target_csvfiles",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "EmployeeID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Name",
+						"type": "varchar"
+					},
+					{
+						"name": "Department",
+						"type": "varchar"
+					},
+					{
+						"name": "Salary",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "employees"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_target_csvfiles')]"
 			]
 		},
 		{
@@ -328,7 +575,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/filter-csv-files-from-blob')]",
+			"name": "[concat(parameters('factoryName'), '/copy-data-from-blob-table')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -351,9 +598,7 @@
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
-									"modifiedDatetimeEnd": null,
-									"wildcardFolderPath": "sample_employees_",
-									"wildcardFileName": "*.csv",
+									"wildcardFileName": "sample_employees_*.csv",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -361,19 +606,57 @@
 								}
 							},
 							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
+								"type": "SqlServerSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
 							},
 							"enableStaging": false,
 							"translator": {
 								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "EmployeeID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "EmployeeID",
+											"type": "int",
+											"precision": 10
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Name",
+											"type": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Department",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Department",
+											"type": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Salary",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Salary",
+											"type": "int",
+											"precision": 10
+										}
+									}
+								],
 								"typeConversion": true,
 								"typeConversionSettings": {
 									"allowDataTruncation": true,
@@ -383,14 +666,14 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "copycsvfilessourceDS",
+								"referenceName": "dssourcecsvfiles",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "copycsvfiletargetDS",
+								"referenceName": "DStargetcsvfiles",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -403,8 +686,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/copycsvfilessourceDS')]",
-				"[concat(variables('factoryId'), '/datasets/copycsvfiletargetDS')]"
+				"[concat(variables('factoryId'), '/datasets/dssourcecsvfiles')]",
+				"[concat(variables('factoryId'), '/datasets/DStargetcsvfiles')]"
 			]
 		}
 	]
