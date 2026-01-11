@@ -1,0 +1,21 @@
+{
+	"name": "LS_target_csvfiles",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "kiradfserver.database.windows.net",
+			"database": "kirdb",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "kiradf",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4YWUwMmRiOS01YzA5LTRjMmEtOTNhZC1kOTNiNDAwMTMxN2UiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "integrationRuntime1-newmysqltarget111",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
