@@ -20,7 +20,7 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": "sample_employees",
+							"wildcardFolderPath": "sample_employees_",
 							"wildcardFileName": "*.csv",
 							"enablePartitionDiscovery": false
 						},
