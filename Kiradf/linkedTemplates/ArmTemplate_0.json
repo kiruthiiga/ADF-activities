@@ -27,6 +27,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'mysqlsourceblobLLSS'"
 		},
+		"LS_target_csvfiles_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_target_csvfiles'"
+		},
 		"LSsourcemysql_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LSsourcemysql'"
@@ -39,9 +43,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'newtargetmtsql111'"
 		},
-		"LS_target_csvfiles_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_target_csvfiles'"
+		"LS_target_csvfiles_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "kiradfserver.database.windows.net"
+		},
+		"LS_target_csvfiles_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "kirdb"
+		},
+		"LS_target_csvfiles_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "kiradf"
 		},
 		"MySql1LS_properties_typeProperties_server": {
 			"type": "string",
@@ -66,18 +78,6 @@
 		"newtargetmtsql111_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "root"
-		},
-		"LS_target_csvfiles_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "kiradfserver.database.windows.net"
-		},
-		"LS_target_csvfiles_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "kirdb"
-		},
-		"LS_target_csvfiles_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "kiradf"
 		}
 	},
 	"variables": {
@@ -261,6 +261,34 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_target_csvfiles')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('LS_target_csvfiles_properties_typeProperties_server')]",
+					"database": "[parameters('LS_target_csvfiles_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_target_csvfiles_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_target_csvfiles_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "integrationRuntime1-newmysqltarget111",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1-newmysqltarget111')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LSsourcemysql')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -344,61 +372,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/LS_target_csvfiles')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('LS_target_csvfiles_properties_typeProperties_server')]",
-					"database": "[parameters('LS_target_csvfiles_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": false,
-					"authenticationType": "SQL",
-					"userName": "[parameters('LS_target_csvfiles_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('LS_target_csvfiles_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "integrationRuntime1-newmysqltarget111",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/integrationRuntime1-newmysqltarget111')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "LSsourcemysql",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"container": "target-cont"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/LSsourcemysql')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/DStargetcsvfiles')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -436,6 +409,33 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_target_csvfiles')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DelimitedText1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LSsourcemysql",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "target-cont"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LSsourcemysql')]"
 			]
 		},
 		{
@@ -688,6 +688,44 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/dssourcecsvfiles')]",
 				"[concat(variables('factoryId'), '/datasets/DStargetcsvfiles')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trigger1_daily10am_schedule')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "copy-data-from-blob-table",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2026-01-12T17:02:00",
+						"timeZone": "India Standard Time",
+						"schedule": {
+							"minutes": [
+								0
+							],
+							"hours": [
+								10
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/copy-data-from-blob-table')]"
 			]
 		}
 	]

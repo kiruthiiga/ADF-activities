@@ -19,6 +19,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_source_csvfile'"
 		},
+		"LS_target_csvfiles_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_target_csvfiles'"
+		},
 		"LSsourcemysql_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LSsourcemysql'"
@@ -39,9 +43,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'newtargetmtsql111'"
 		},
-		"LS_target_csvfiles_password": {
-			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'LS_target_csvfiles'"
+		"LS_target_csvfiles_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "kiradfserver.database.windows.net"
+		},
+		"LS_target_csvfiles_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "kirdb"
+		},
+		"LS_target_csvfiles_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "kiradf"
 		},
 		"MySql1LS_properties_typeProperties_server": {
 			"type": "string",
@@ -66,18 +78,6 @@
 		"newtargetmtsql111_properties_typeProperties_username": {
 			"type": "string",
 			"defaultValue": "root"
-		},
-		"LS_target_csvfiles_properties_typeProperties_server": {
-			"type": "string",
-			"defaultValue": "kiradfserver.database.windows.net"
-		},
-		"LS_target_csvfiles_properties_typeProperties_database": {
-			"type": "string",
-			"defaultValue": "kirdb"
-		},
-		"LS_target_csvfiles_properties_typeProperties_userName": {
-			"type": "string",
-			"defaultValue": "kiradf"
 		},
 		"containerUri": {
 			"type": "string",
@@ -121,6 +121,9 @@
 					"mysqlsourceblobLLSS_connectionString": {
 						"value": "[parameters('mysqlsourceblobLLSS_connectionString')]"
 					},
+					"LS_target_csvfiles_password": {
+						"value": "[parameters('LS_target_csvfiles_password')]"
+					},
 					"LSsourcemysql_connectionString": {
 						"value": "[parameters('LSsourcemysql_connectionString')]"
 					},
@@ -130,8 +133,14 @@
 					"newtargetmtsql111_password": {
 						"value": "[parameters('newtargetmtsql111_password')]"
 					},
-					"LS_target_csvfiles_password": {
-						"value": "[parameters('LS_target_csvfiles_password')]"
+					"LS_target_csvfiles_properties_typeProperties_server": {
+						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_server')]"
+					},
+					"LS_target_csvfiles_properties_typeProperties_database": {
+						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_database')]"
+					},
+					"LS_target_csvfiles_properties_typeProperties_userName": {
+						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_userName')]"
 					},
 					"MySql1LS_properties_typeProperties_server": {
 						"value": "[parameters('MySql1LS_properties_typeProperties_server')]"
@@ -150,15 +159,6 @@
 					},
 					"newtargetmtsql111_properties_typeProperties_username": {
 						"value": "[parameters('newtargetmtsql111_properties_typeProperties_username')]"
-					},
-					"LS_target_csvfiles_properties_typeProperties_server": {
-						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_server')]"
-					},
-					"LS_target_csvfiles_properties_typeProperties_database": {
-						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_database')]"
-					},
-					"LS_target_csvfiles_properties_typeProperties_userName": {
-						"value": "[parameters('LS_target_csvfiles_properties_typeProperties_userName')]"
 					}
 				}
 			},

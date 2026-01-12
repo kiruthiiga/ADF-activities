@@ -14,6 +14,9 @@
 		"LS_source_csvfile_connectionString": {
 			"value": ""
 		},
+		"LS_target_csvfiles_password": {
+			"value": ""
+		},
 		"LSsourcemysql_connectionString": {
 			"value": ""
 		},
@@ -29,8 +32,14 @@
 		"newtargetmtsql111_password": {
 			"value": ""
 		},
-		"LS_target_csvfiles_password": {
-			"value": ""
+		"LS_target_csvfiles_properties_typeProperties_server": {
+			"value": "kiradfserver.database.windows.net"
+		},
+		"LS_target_csvfiles_properties_typeProperties_database": {
+			"value": "kirdb"
+		},
+		"LS_target_csvfiles_properties_typeProperties_userName": {
+			"value": "kiradf"
 		},
 		"MySql1LS_properties_typeProperties_server": {
 			"value": "192.168.1.150"
@@ -49,15 +58,6 @@
 		},
 		"newtargetmtsql111_properties_typeProperties_username": {
 			"value": "root"
-		},
-		"LS_target_csvfiles_properties_typeProperties_server": {
-			"value": "kiradfserver.database.windows.net"
-		},
-		"LS_target_csvfiles_properties_typeProperties_database": {
-			"value": "kirdb"
-		},
-		"LS_target_csvfiles_properties_typeProperties_userName": {
-			"value": "kiradf"
 		},
 		"containerUri": {
 			"value": ""
