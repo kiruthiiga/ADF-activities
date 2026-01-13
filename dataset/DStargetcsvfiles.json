@@ -29,7 +29,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "employees"
+			"table": "employees_stg"
 		}
 	}
 }
