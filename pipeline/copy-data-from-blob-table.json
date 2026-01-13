@@ -86,43 +86,49 @@
 										{
 											"source": {
 												"name": "EmployeeID",
-												"type": "String"
+												"type": "String",
+												"physicalType": "String"
 											},
 											"sink": {
 												"name": "EmployeeID",
-												"type": "int",
-												"precision": 10
+												"type": "Int32",
+												"physicalType": "int"
 											}
 										},
 										{
 											"source": {
 												"name": "Name",
-												"type": "String"
+												"type": "String",
+												"physicalType": "String"
 											},
 											"sink": {
-												"name": "Name",
-												"type": "varchar"
+												"name": "name",
+												"type": "String",
+												"physicalType": "varchar"
 											}
 										},
 										{
 											"source": {
 												"name": "Department",
-												"type": "String"
+												"type": "String",
+												"physicalType": "String"
 											},
 											"sink": {
-												"name": "Department",
-												"type": "varchar"
+												"name": "department",
+												"type": "String",
+												"physicalType": "varchar"
 											}
 										},
 										{
 											"source": {
 												"name": "Salary",
-												"type": "String"
+												"type": "String",
+												"physicalType": "String"
 											},
 											"sink": {
-												"name": "Salary",
-												"type": "int",
-												"precision": 10
+												"name": "salary",
+												"type": "Int32",
+												"physicalType": "int"
 											}
 										}
 									],
