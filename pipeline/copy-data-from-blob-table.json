@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Get_File_List",
+				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -15,89 +15,169 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "DelimitedTextSource",
-						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
-							"recursive": true,
-							"wildcardFileName": "sample_employees_*.csv",
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
-						}
-					},
-					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "EmployeeID",
-									"type": "String"
-								},
-								"sink": {
-									"name": "EmployeeID",
-									"type": "int",
-									"precision": 10
-								}
-							},
-							{
-								"source": {
-									"name": "Name",
-									"type": "String"
-								},
-								"sink": {
-									"name": "Name",
-									"type": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Department",
-									"type": "String"
-								},
-								"sink": {
-									"name": "Department",
-									"type": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Salary",
-									"type": "String"
-								},
-								"sink": {
-									"name": "Salary",
-									"type": "int",
-									"precision": 10
-								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "dssourcecsvfiles",
+					"dataset": {
+						"referenceName": "ds_getmeta",
 						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"childItems"
+					],
+					"storeSettings": {
+						"type": "AzureBlobStorageReadSettings",
+						"enablePartitionDiscovery": false
+					},
+					"formatSettings": {
+						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "ForEach1-files",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Get_File_List",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
 				],
-				"outputs": [
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get_File_List').output.childItems\n",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy data1",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "DelimitedTextSource",
+									"storeSettings": {
+										"type": "AzureBlobStorageReadSettings",
+										"recursive": true,
+										"wildcardFileName": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
+										"enablePartitionDiscovery": false
+									},
+									"formatSettings": {
+										"type": "DelimitedTextReadSettings"
+									}
+								},
+								"sink": {
+									"type": "SqlServerSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "EmployeeID",
+												"type": "String"
+											},
+											"sink": {
+												"name": "EmployeeID",
+												"type": "int",
+												"precision": 10
+											}
+										},
+										{
+											"source": {
+												"name": "Name",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Name",
+												"type": "varchar"
+											}
+										},
+										{
+											"source": {
+												"name": "Department",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Department",
+												"type": "varchar"
+											}
+										},
+										{
+											"source": {
+												"name": "Salary",
+												"type": "String"
+											},
+											"sink": {
+												"name": "Salary",
+												"type": "int",
+												"precision": 10
+											}
+										}
+									],
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "dssourcecsvfiles",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DStargetcsvfiles",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
 					{
-						"referenceName": "DStargetcsvfiles",
-						"type": "DatasetReference"
+						"activity": "ForEach1-files",
+						"dependencyConditions": [
+							"Succeeded"
+						]
 					}
-				]
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[sp_merge_employees]"
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_target_csvfiles",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
