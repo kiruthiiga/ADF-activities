@@ -175,7 +175,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[dbo].[sp_merge_employees]"
+					"storedProcedureName": "[dbo].[usp_merge_employees]"
 				},
 				"linkedServiceName": {
 					"referenceName": "LS_target_csvfiles",
